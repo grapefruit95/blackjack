@@ -1,4 +1,3 @@
-from os import remove
 import random
 
 deck = ["JK","JK",
@@ -21,7 +20,7 @@ def removeJokers():
 
 #shuffle deck, return true when done
 def shuffle():
-    deck = random.shuffle(deck)
+    random.shuffle(deck)
     return True
 
 #create new empty list for new hand in hands list
