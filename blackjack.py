@@ -15,30 +15,41 @@ def main():
     cards.dealToHands(2)
 
     handSums = []
+
+    #sum up current dealer value, go through player turns
+    i = 0
     for hand in cards.hands:
         print(cards.hands)
-        print(handSums)
-        if hand.index == 0:
-            continue
-        else:
-            sum = 0
+        sum = 0
+        if i == 0:
             for card in hand:
                 sum += getValue(card)
-            while sum < 21:
+            handSums.append(sum)
+        else:
+            for card in hand:
+                sum += getValue(card)
+            standFlag = False
+            while sum < 21 and standFlag == False:
                 playerChoice = str(input("Hit or Stand? [H/S]: "))
+                print(handSums)
                 if playerChoice == 'H':
-                    cards.dealToHand(1,hand.index)
+                    cards.dealToHand(1,i)
                     print(cards.hands)
                     sum += getValue(hand[-1]) #add value of new card
                     if sum > 21:
-                        handSums[hand.index] = -1
-                        break
+                        handSums.append(-1)
                     if sum == 21:
-                        handSums[hand.index] = sum
-                        break
+                        handSums.append(sum)
                 if playerChoice == 'S':
-                    handSums[hand.index] = sum
-                    break
+                    handSums.append(sum)
+                    standFlag = True
+        i += 1
+    while handSums[0] < 17:
+        cards.dealToHand(1,0)
+        handSums[0] += getValue(cards.hands[0][-1])
+    if handSums[0] > 21:
+        handSums[0] = -1
+    print(handSums)
 
 
 def getValue(card):
