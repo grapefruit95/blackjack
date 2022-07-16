@@ -4,19 +4,14 @@ import display
 shoeSize = 6
 
 def main():
-    numPlayers = int(input("Number of Players: "))
-    for x in range(0, numPlayers+1): #+1 for dealer. dealer is hand 0
 
-        cards.createHand()
+    setUpHands()
 
     shoeSize = int(input("Shoe Size: "))
     setShoeSize(shoeSize)
 
-    hitOnSoftSeventeen = input("Must the dealer hit on a soft 17? [Y/N]: ")
-    if hitOnSoftSeventeen == "Y":
-        hitOnSoftSeventeen = True
-    elif hitOnSoftSeventeen == "N":
-        hitOnSoftSeventeen = False
+    hitOnSoftSeventeen = True
+    hitOnSoftSeventenn = getSoftSeventeenBool()
 
     cards.removeJokers()
     cards.shuffle()
@@ -102,7 +97,20 @@ def checkWin(handSums):
         print("Dealer wins")
         return True
     print(winStr)
-            
+
+def getSoftSeventeenBool():
+    hit = input("Must the dealer hit on a soft 17? [Y/N]: ")
+    if hit == "Y":
+        hit = True
+    elif hit == "N":
+        hit = False
+    return hit
+
+def setUpHands():
+    numPlayers = int(input("Number of Players: "))
+    for x in range(0, numPlayers+1): #+1 for dealer. dealer is hand 0
+
+        cards.createHand()            
 
 if __name__=="__main__":
     main()
