@@ -10,7 +10,6 @@ def main():
     shoeSize = int(input("Shoe Size: "))
     setShoeSize(shoeSize)
 
-    hitOnSoftSeventeen = True
     hitOnSoftSeventenn = getSoftSeventeenBool()
 
     cards.removeJokers()
