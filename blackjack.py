@@ -10,7 +10,7 @@ def main():
     shoeSize = int(input("Shoe Size: "))
     setShoeSize(shoeSize)
 
-    hitOnSoftSeventenn = getSoftSeventeenBool()
+    hitOnSoftSeventeen = getSoftSeventeenBool()
 
     cards.removeJokers()
     cards.shuffle()
@@ -57,14 +57,7 @@ def main():
         i += 1
 
     #dealers turn
-    while handSums[0] < 17:
-        cards.dealToHand(1,0)
-        handSums[0] += getValue(cards.hands[0][-1])
-        if handSums[0] == 17 and hitOnSoftSeventeen and ("A" in cards.hands[0][0] or "A" in cards.hands[0][1]):
-           cards.dealToHand(1,0)
-           handSums[0] += getValue(cards.hands[0][-1]) 
-    if handSums[0] > 21:
-        handSums[0] = -1
+    runDealerTurn(handSums, hitOnSoftSeventeen)
 
     display.clearConsole()
     display.displayGame(True, handSums)
@@ -110,6 +103,16 @@ def setUpHands():
     for x in range(0, numPlayers+1): #+1 for dealer. dealer is hand 0
 
         cards.createHand()            
+
+def runDealerTurn(handSums, hitOnSoftSeventeen):
+    while handSums[0] < 17:
+        cards.dealToHand(1,0)
+        handSums[0] += getValue(cards.hands[0][-1])
+        if handSums[0] == 17 and hitOnSoftSeventeen and ("A" in cards.hands[0][0] or "A" in cards.hands[0][1]):
+           cards.dealToHand(1,0)
+           handSums[0] += getValue(cards.hands[0][-1]) 
+    if handSums[0] > 21:
+        handSums[0] = -1
 
 if __name__=="__main__":
     main()
