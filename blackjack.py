@@ -1,8 +1,6 @@
 import cards
 import display
 
-shoeSize = 6
-
 def main():
 
     setUpHands()
