@@ -1,6 +1,32 @@
 import cards
 import display
 
+class Hand():
+    """models a hand for blackjack"""
+
+    def __init__(self, name, initNumCards):
+        self.cardsInHand = []
+        self.value = getValue(self.cardsInHand)
+        i = 0
+        while i < initNumCards:
+            self.cardsInHand.append(cards.deck.pop[0])
+            i += 1
+
+    def getValue(cardsInHand):
+        for card in cardsInHand:
+            if card == "JK":
+                return 0
+            elif "10" in card or "K" in card or "Q" in card or "J" in card:
+                return 10
+            elif "A" in card:
+                return 11
+            else:
+                return int(card[0])
+    
+    def addCard():
+        return True
+    
+
 def main():
 
     setUpHands()
