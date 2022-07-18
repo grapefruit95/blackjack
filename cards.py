@@ -1,5 +1,30 @@
 import random
 
+class Hand():
+    """models a hand for blackjack"""
+
+    def __init__(self, name, initNumCards):
+        self.cardsInHand = []
+        self.value = self.getValue(self.cardsInHand)
+        i = 0
+        while i < initNumCards:
+            self.cardsInHand.append(deck.pop[0])
+            i += 1
+
+    def getValue(cardsInHand):
+        for card in cardsInHand:
+            if card == "JK":
+                return 0
+            elif "10" in card or "K" in card or "Q" in card or "J" in card:
+                return 10
+            elif "A" in card:
+                return 11
+            else:
+                return int(card[0])
+    
+    def addCard():
+        return True
+
 deck = ["JK","JK",
 "AS","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS",
 "AD","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD",
