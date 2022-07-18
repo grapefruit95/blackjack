@@ -10,7 +10,7 @@ def clearConsole():
 def displayGame(showHoleCard, handSums):
     if showHoleCard:
         handStr = ""
-        for card in cards.hands[0]:
+        for card in cards.hands[0].cardsInHand:
             handStr += str(card)+" "
         if handSums[0] == -1:
             print("Dealer: "+handStr+"(Bust)"+"\n")
@@ -18,17 +18,17 @@ def displayGame(showHoleCard, handSums):
             print("Dealer: "+handStr+"("+str(handSums[0])+")"+"\n")
         for player in range(1, len(cards.hands)):
             handStr = ""
-            for card in cards.hands[player]:
+            for card in cards.hands[player].cardsInHand:
                 handStr += str(card)+" "
             if handSums[player] == -1:
                 print("Player "+str(player)+": "+handStr+"(Bust)")
             else:
                 print("Player "+str(player)+": "+handStr+"("+str(handSums[player])+")")
     else:
-        print("Dealer: "+str(cards.hands[0][0])+" XX\n")
+        print("Dealer: "+str(cards.hands[0].cardsInHand[0])+" XX\n")
         for player in range(1, len(cards.hands)):
             handStr = ""
-            for card in cards.hands[player]:
+            for card in cards.hands[player].cardsInHand:
                 handStr += str(card)+" "
             print("Player "+str(player)+": "+handStr)
    

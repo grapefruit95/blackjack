@@ -24,12 +24,12 @@ def main():
     for hand in cards.hands:
         sum = 0
         if i == 0:
-            for card in hand:
-                sum += getValue(card)
+            for card in hand.cardsInHand:
+                sum += getCardValue(card)
             handSums.append(sum)
         else:
-            for card in hand:
-                sum += getValue(card)
+            for card in hand.cardsInHand:
+                sum += getCardValue(card)
             standFlag = False
             while sum <= 21 and standFlag == False:
                 if sum == 21:
@@ -41,7 +41,7 @@ def main():
                     cards.dealToHand(1,i)
                     display.clearConsole()
                     display.displayGame(False, handSums)
-                    sum += getValue(hand[-1]) #add value of new card
+                    sum += getCardValue(hand.cardsInHand[-1]) #add value of new card
                     if sum > 21:
                         handSums.append(-1)
                         standFlag = True
@@ -62,7 +62,7 @@ def main():
 
     checkWin(handSums)
 
-def getValue(card):
+def getCardValue(card):
     if card == "JK":
         return 0
     elif "10" in card or "K" in card or "Q" in card or "J" in card:
@@ -105,10 +105,10 @@ def setUpHands():
 def runDealerTurn(handSums, hitOnSoftSeventeen):
     while handSums[0] < 17:
         cards.dealToHand(1,0)
-        handSums[0] += getValue(cards.hands[0][-1])
-        if handSums[0] == 17 and hitOnSoftSeventeen and ("A" in cards.hands[0][0] or "A" in cards.hands[0][1]):
+        handSums[0] += getCardValue(cards.hands[0].cardsInHand[-1])
+        if handSums[0] == 17 and hitOnSoftSeventeen and ("A" in cards.hands[0].cardsInHand[0] or "A" in cards.hands[0].cardsInHand[1]):
            cards.dealToHand(1,0)
-           handSums[0] += getValue(cards.hands[0][-1]) 
+           handSums[0] += getCardValue(cards.hands[0].cardsInHand[-1]) 
     if handSums[0] > 21:
         handSums[0] = -1
 
