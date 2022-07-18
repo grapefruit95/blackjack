@@ -33,9 +33,6 @@ deck = ["JK","JK",
 
 hands = []
 
-def getDeck():
-    return deck
-
 #remove jokers from deck if present
 #return true when jokers are no longer in deck
 def removeJokers():
@@ -48,9 +45,12 @@ def shuffle():
     random.shuffle(deck)
     return True
 
-#create new empty list for new hand in hands list
+#create new instance of Hand, adds to array of Hands
+numHands = 0
 def createHand():
-    hands.append([])
+    global numHands
+    numHands += 1
+    hands.append(Hand("Player "+numHands, 0))
     return True
 
 #pops off end of deck and into desired hand, repeat for number of cards desired
@@ -59,7 +59,7 @@ def dealToHand(numCards, numHand):
     if numCards > len(deck):
         return False
     while numCards > 0:
-        hands[numHand].append(deck.pop(len(deck)-1))
+        hands[numHand].cardsInHand.append(deck.pop(len(deck)-1))
         numCards -= 1
     return True
 
@@ -70,8 +70,8 @@ def dealToHands(numCards):
     if cardsToDeal > len(deck):
         return False
     while cardsToDeal > 0:
-        for hand in hands:
-            hand.append(deck.pop(len(deck)-1))
+        for Hand in hands:
+            Hand.cardsInHand.append(deck.pop(len(deck)-1))
             cardsToDeal -= 1
     return True
 
@@ -79,8 +79,8 @@ def dealToHands(numCards):
 #executes transfer if true. returns true
 #return false if card not in outgoing hand
 def transferCard(toHand, fromHand, card):
-    if card in hands[fromHand]:
-        hands[fromHand].remove(card)
-        hands[toHand].append(card)
+    if card in hands[fromHand].cardsInHand:
+        hands[fromHand].cardsInHand.remove(card)
+        hands[toHand].cardsInHand.append(card)
         return True
     return False
