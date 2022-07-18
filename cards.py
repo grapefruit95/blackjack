@@ -5,14 +5,14 @@ class Hand():
 
     def __init__(self, name, initNumCards):
         self.cardsInHand = []
-        self.value = self.getValue(self.cardsInHand)
+        self.value = self.getValue()
         i = 0
         while i < initNumCards:
             self.cardsInHand.append(deck.pop[0])
             i += 1
 
-    def getValue(cardsInHand):
-        for card in cardsInHand:
+    def getValue(self):
+        for card in self.cardsInHand:
             if card == "JK":
                 return 0
             elif "10" in card or "K" in card or "Q" in card or "J" in card:
@@ -50,7 +50,7 @@ numHands = 0
 def createHand():
     global numHands
     numHands += 1
-    hands.append(Hand("Player "+numHands, 0))
+    hands.append(Hand("Player "+str(numHands), 0))
     return True
 
 #pops off end of deck and into desired hand, repeat for number of cards desired
