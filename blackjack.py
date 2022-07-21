@@ -15,44 +15,33 @@ def main():
     cards.dealToHands(2)
 
     handSums = []
+    handSums.append(cards.hands[0].getValue()) #set dealer value
 
     display.clearConsole()
     display.displayGame(False, handSums)
 
     #sum up current dealer value, go through player turns
-    i = 0
+
     for hand in cards.hands:
-        sum = 0
-        if i == 0:
-            for card in hand.cardsInHand:
-                sum += getCardValue(card)
-            handSums.append(sum)
-        else:
-            for card in hand.cardsInHand:
-                sum += getCardValue(card)
-            standFlag = False
-            while sum <= 21 and standFlag == False:
-                if sum == 21:
-                    handSums.append(sum)
-                    standFlag = True
-                    continue
-                playerChoice = str(input("Hit or Stand? [H/S]: "))
-                if playerChoice == 'H':
-                    cards.dealToHand(1,i)
-                    display.clearConsole()
-                    display.displayGame(False, handSums)
-                    sum += getCardValue(hand.cardsInHand[-1]) #add value of new card
-                    if sum > 21:
-                        handSums.append(-1)
-                        standFlag = True
-                    if sum == 21:
-                        handSums.append(sum)
-                        standFlag = True
-                if playerChoice == 'S':
-                    handSums.append(sum)
-                    standFlag = True
-                
-        i += 1
+        if hand.isDealer:
+            continue
+        playerChoice = ''
+        while playerChoice != 'S':
+            playerChoice = str(input("Hit or Stand? [H/S]: "))
+            if playerChoice == 'H':
+                hand.dealToHand(1)
+                display.clearConsole()
+                display.displayGame(False, handSums)
+
+                #old sum. should now be calculated in Hand class
+                if hand.getValue() == -1:
+                    handSums.append(hand.getValue())
+                    break
+                if hand.getValue() == 21:
+                    handSums.append(hand.getValue())
+                    break
+        if playerChoice == 'S':
+            handSums.append(hand.getValue())
 
     #dealers turn
     runDealerTurn(handSums, hitOnSoftSeventeen)
@@ -99,18 +88,16 @@ def getSoftSeventeenBool():
 def setUpHands():
     numPlayers = int(input("Number of Players: "))
     for x in range(0, numPlayers+1): #+1 for dealer. dealer is hand 0
-
-        cards.createHand()            
+        cards.createHand()        
+    cards.hands[0].isDealer = True    
 
 def runDealerTurn(handSums, hitOnSoftSeventeen):
-    while handSums[0] < 17:
-        cards.dealToHand(1,0)
-        handSums[0] += getCardValue(cards.hands[0].cardsInHand[-1])
-        if handSums[0] == 17 and hitOnSoftSeventeen and ("A" in cards.hands[0].cardsInHand[0] or "A" in cards.hands[0].cardsInHand[1]):
-           cards.dealToHand(1,0)
-           handSums[0] += getCardValue(cards.hands[0].cardsInHand[-1]) 
-    if handSums[0] > 21:
-        handSums[0] = -1
+    dealer = cards.hands[0]
+    while dealer.getValue() < 17:
+        dealer.dealToHand(1)
+        if dealer.getValue() == 17 and hitOnSoftSeventeen and ("A" in dealer.cardsInHand):
+           dealer.dealToHand(1)
+    handSums[0] = dealer.getValue()
 
 if __name__=="__main__":
     main()

@@ -6,23 +6,38 @@ class Hand():
     def __init__(self, name, initNumCards):
         self.cardsInHand = []
         self.value = self.getValue()
+        self.isDealer = False
         i = 0
         while i < initNumCards:
             self.cardsInHand.append(deck.pop[0])
             i += 1
 
     def getValue(self):
+        value = 0
         for card in self.cardsInHand:
             if card == "JK":
-                return 0
+                continue
             elif "10" in card or "K" in card or "Q" in card or "J" in card:
-                return 10
+                value += 10
             elif "A" in card:
-                return 11
+                #check if A as 11 will cause a bust. assign A value of 1 if true
+                if value + 11 > 21:
+                    value += 1
+                else:
+                    value += 11
             else:
-                return int(card[0])
+                value += int(card[0])
+        if value > 21:
+            return -1
+        else: 
+            return value
     
-    def addCard():
+    def dealToHand(self, numCards):
+        if numCards > len(deck):
+            return False
+        while numCards > 0:
+            self.cardsInHand.append(deck.pop(len(deck)-1))
+            numCards -= 1
         return True
 
 deck = ["JK","JK",
