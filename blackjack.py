@@ -41,6 +41,8 @@ def main():
                     handSums.append(hand.getValue())
                     break
         if playerChoice == 'S':
+            display.clearConsole()
+            display.displayGame(False, handSums)
             handSums.append(hand.getValue())
 
     #dealers turn
