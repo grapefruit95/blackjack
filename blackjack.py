@@ -95,10 +95,10 @@ def setUpHands():
 
 def runDealerTurn(handSums, hitOnSoftSeventeen):
     dealer = cards.hands[0]
-    while dealer.getValue() < 17:
+    while dealer.getValue() < 17 and dealer.getValue() != -1:
         dealer.dealToHand(1)
-        if dealer.getValue() == 17 and hitOnSoftSeventeen and ("A" in dealer.cardsInHand):
-           dealer.dealToHand(1)
+    if dealer.getValue() == 17 and hitOnSoftSeventeen and ("A" in dealer.cardsInHand):
+        dealer.dealToHand(1)
     handSums[0] = dealer.getValue()
 
 if __name__=="__main__":

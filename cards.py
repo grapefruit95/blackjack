@@ -13,24 +13,26 @@ class Hand():
             i += 1
 
     def getValue(self):
-        value = 0
+        self.value = 0
+        self.aceCount = 0
+        #initally treat aces as 11, but count how many the hand has
         for card in self.cardsInHand:
-            if card == "JK":
-                continue
-            elif "10" in card or "K" in card or "Q" in card or "J" in card:
-                value += 10
+            if "10" in card or "K" in card or "Q" in card or "J" in card:
+                self.value += 10
             elif "A" in card:
                 #check if A as 11 will cause a bust. assign A value of 1 if true
-                if value + 11 > 21:
-                    value += 1
-                else:
-                    value += 11
+                self.value += 11
+                self.aceCount += 1
             else:
-                value += int(card[0])
-        if value > 21:
+                self.value += int(card[0])
+        #subtract to make aces worth 1 until value is less than 21
+        while self.aceCount > 0 and self.value > 21:
+            self.value -= 10
+            self.aceCount -= 1
+        if self.value > 21:
             return -1
         else: 
-            return value
+            return self.value
     
     def dealToHand(self, numCards):
         if numCards > len(deck):
@@ -40,6 +42,7 @@ class Hand():
             numCards -= 1
         return True
 
+#deck organized how a real deck is organized new in box
 deck = ["JK","JK",
 "AS","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS",
 "AD","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD",
