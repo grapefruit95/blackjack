@@ -1,4 +1,4 @@
-import { createHand, hands, deck, initDeck } from "./cards.js";
+import { createHand, hands, deck } from "./cards.js";
 
 function main(){
     setUpHands();

@@ -41,5 +41,3 @@ export let deck = ["JK","JK",
 "AD","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD",
 "KC","QC","JC","10C","9C","8C","7C","6C","5C","4C","3C","2C","AC",
 "KH","QH","JH","10H","9H","8H","7H","6H","5H","4H","3H","2H","AH"];
-
-export let initDeck = deck;
