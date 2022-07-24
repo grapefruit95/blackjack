@@ -4,7 +4,7 @@ function main(){
     setUpHands();
 
     let shoeSize = parseInt(prompt("Shoe Size: "));
-    setupShoe(shoeSize);
+    setUpShoe(shoeSize);
 
     let hitOnSoftSeventeen = getSoftSeventeenBool();
     console.log(hitOnSoftSeventeen);
@@ -23,7 +23,7 @@ function setUpHands(){
     console.log(hands);
 }
 
-function setupShoe(size){
+function setUpShoe(size){
     for(let i = 0; i < size-1; i++){
         deck.push("JK","JK",
         "AS","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS",
