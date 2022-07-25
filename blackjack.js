@@ -1,5 +1,5 @@
 import { createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
-
+import { updateDisplayCards } from "./display.js";
 function main(){
     setUpHands();
 
@@ -18,10 +18,12 @@ function main(){
     dealToHands(2);
     console.log(hands);
 
+    updateDisplayCards();
+    console.log(numPlayers);
 }
 
+export let numPlayers = 0;
 function setUpHands(){
-    let numPlayers = 0;
     while(numPlayers < 1 || numPlayers > 10){
         numPlayers = parseInt(prompt("Number of players (1-10): "));
     }
