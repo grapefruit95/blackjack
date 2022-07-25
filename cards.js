@@ -3,6 +3,7 @@ class Hand{
         this.cardsInHand = [];
         this.value = this.getValue();
         this.isDealer = false;
+        this.aceCount = 0;
         let i = 0
         while(i < initNumCards){
             this.cardsInHand.push(deck.pop());
@@ -12,11 +13,49 @@ class Hand{
     }
 
     getValue(){
-        return 1;
+        this.value = 0;
+        this.aceCount = 0;
+        for(let i = 0; i < this.cardsInHand.length; i++){
+            let str = this.cardsInHand[i];
+            if(str.indexOf("10") !== -1 || str.indexOf("J") !== -1 || str.indexOf("Q") !== -1 || str.indexOf("K") !== -1){
+                this.value += 10;
+            }
+            else if(str.indexOf("A") !== -1){
+                this.value += 11;
+                this.aceCount += 1;
+            }
+            else{
+                this.value += parseInt(str[0]);
+            }
+        }
+        while(this.aceCount > 0 && this.value > 21){
+            this.value -= 10;
+            this.aceCount -= 1;
+        }
+        if(this.value > 21){
+            return -1;
+        }
+        else{
+            return this.value
+        }
+    }
+
+    dealToHand(numCards){
+        if(numCards > deck.length){
+            return false;
+        }
+        while(numCards > 0){
+            this.cardsInHand.push(deck.pop());
+            numCards--;
+        }
+        return true;
     }
 }
-
+//GLOBALS
+//deck organized how a real deck is organized new in box
+export let deck = [];
 export let hands = [];
+
 let numHands = 0;
 
 export function createHand(){
@@ -35,9 +74,39 @@ export function getHands(){
     return hands;
 }
 
-//deck organized how a real deck is organized new in box
-export let deck = ["JK","JK",
-"AS","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS",
-"AD","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD",
-"KC","QC","JC","10C","9C","8C","7C","6C","5C","4C","3C","2C","AC",
-"KH","QH","JH","10H","9H","8H","7H","6H","5H","4H","3H","2H","AH"];
+export function removeJokers(){
+    for(let i = deck.length-1; i >= 0; i--){
+        if(deck[i] == "JK"){
+            deck.splice(i, 1);
+        }
+    }
+}
+
+/**
+ * Shuffles array in place.
+ * @param {Array} array items An array containing the items.
+ * Fisher-Yates shuffle. NOT MY CODE!
+ */
+ export function shuffle(array) {
+    let j, x, i;
+    for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = array[i];
+        array[i] = array[j];
+        array[j] = x;
+    }
+    return array;
+}
+
+export function dealToHands(numCards){
+    let cardsToDeal = numCards*hands.length;
+    if(cardsToDeal > deck.length){
+        return false;
+    }
+    while(cardsToDeal > 0){
+        for(let i = 0; i < hands.length; i++){
+            hands[i].dealToHand(1);
+            cardsToDeal--;
+        }
+    }
+}

@@ -1,5 +1,5 @@
-import { createHand, hands, deck } from "./cards.js";
-
+import { createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
+import { updateDisplayCards } from "./display.js";
 function main(){
     setUpHands();
 
@@ -9,10 +9,42 @@ function main(){
     let hitOnSoftSeventeen = getSoftSeventeenBool();
     console.log(hitOnSoftSeventeen);
 
+    removeJokers();
+    console.log(deck);
+
+    shuffle(deck);
+    console.log(deck);
+
+    dealToHands(2);
+    console.log(hands);
+
+    updateDisplayCards();
+    console.log(numPlayers);
+
+    let currentPlayer = 1;
+    let playerChoice = "";
+    document.addEventListener("keydown", function(event){
+        if(event.key == "S"){
+            playerChoice = "Stand";
+            updateDisplayCards();
+            currentPlayer++;
+            if(currentPlayer == hands.length){
+                runDealerTurn(hitOnSoftSeventeen);
+                updateDisplayCards();
+                checkWin();
+            }
+        }
+        else if(event.key == "H"){
+            playerChoice = "Hit";
+            hands[currentPlayer].dealToHand(1);
+            updateDisplayCards();
+            if(hands[currentPlayer].getValue() == -1) currentPlayer++;
+        }
+    });
 }
 
+export let numPlayers = 0;
 function setUpHands(){
-    let numPlayers = 0;
     while(numPlayers < 1 || numPlayers > 10){
         numPlayers = parseInt(prompt("Number of players (1-10): "));
     }
@@ -24,7 +56,7 @@ function setUpHands(){
 }
 
 function setUpShoe(size){
-    for(let i = 0; i < size-1; i++){
+    for(let i = 0; i < size; i++){
         deck.push("JK","JK",
         "AS","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS",
         "AD","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD",
@@ -40,6 +72,30 @@ function getSoftSeventeenBool(){
     if(hit == "Y") return true;
     if(hit == "N") return false;
     return true;
+}
+
+function runDealerTurn(hitOnSoftSeventeen){
+    let dealer = hands[0];
+    while(dealer.getValue() < 17 && dealer.getValue() !== -1){
+        dealer.dealToHand(1);
+    }
+    if(dealer.getValue() == 17 && hitOnSoftSeventeen && (String(dealer.cardsInHand).indexOf("A") !== -1) ){
+        dealer.dealToHand(1);
+    }
+}
+
+function checkWin(){
+    let winStr = "";
+    let dealerSum = hands[0].getValue();
+    for(let i = 1; i < hands.length; i++){
+        if(hands[i].getValue() > dealerSum){
+            winStr += "Player "+String(i)+" wins ";
+        }
+    }
+    if(winStr == ""){
+        winStr = "Dealer Wins";
+    }
+    console.log(winStr)
 }
 
 main();
