@@ -20,6 +20,27 @@ function main(){
 
     updateDisplayCards();
     console.log(numPlayers);
+
+    let currentPlayer = 1;
+    let playerChoice = "";
+    document.addEventListener("keydown", function(event){
+        if(event.key == "S"){
+            playerChoice = "Stand";
+            updateDisplayCards();
+            currentPlayer++;
+            if(currentPlayer == hands.length){
+                runDealerTurn(hitOnSoftSeventeen);
+                updateDisplayCards();
+                checkWin();
+            }
+        }
+        else if(event.key == "H"){
+            playerChoice = "Hit";
+            hands[currentPlayer].dealToHand(1);
+            updateDisplayCards();
+            if(hands[currentPlayer].getValue() == -1) currentPlayer++;
+        }
+    });
 }
 
 export let numPlayers = 0;
@@ -51,6 +72,30 @@ function getSoftSeventeenBool(){
     if(hit == "Y") return true;
     if(hit == "N") return false;
     return true;
+}
+
+function runDealerTurn(hitOnSoftSeventeen){
+    let dealer = hands[0];
+    while(dealer.getValue() < 17 && dealer.getValue() !== -1){
+        dealer.dealToHand(1);
+    }
+    if(dealer.getValue() == 17 && hitOnSoftSeventeen && (String(dealer.cardsInHand).indexOf("A") !== -1) ){
+        dealer.dealToHand(1);
+    }
+}
+
+function checkWin(){
+    let winStr = "";
+    let dealerSum = hands[0].getValue();
+    for(let i = 1; i < hands.length; i++){
+        if(hands[i].getValue() > dealerSum){
+            winStr += "Player "+String(i)+" wins ";
+        }
+    }
+    if(winStr == ""){
+        winStr = "Dealer Wins";
+    }
+    console.log(winStr)
 }
 
 main();

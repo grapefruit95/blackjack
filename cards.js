@@ -3,6 +3,7 @@ class Hand{
         this.cardsInHand = [];
         this.value = this.getValue();
         this.isDealer = false;
+        this.aceCount = 0;
         let i = 0
         while(i < initNumCards){
             this.cardsInHand.push(deck.pop());
@@ -12,7 +13,31 @@ class Hand{
     }
 
     getValue(){
-        return 1;
+        this.value = 0;
+        this.aceCount = 0;
+        for(let i = 0; i < this.cardsInHand.length; i++){
+            let str = this.cardsInHand[i];
+            if(str.indexOf("10") !== -1 || str.indexOf("J") !== -1 || str.indexOf("Q") !== -1 || str.indexOf("K") !== -1){
+                this.value += 10;
+            }
+            else if(str.indexOf("A") !== -1){
+                this.value += 11;
+                this.aceCount += 1;
+            }
+            else{
+                this.value += parseInt(str[0]);
+            }
+        }
+        while(this.aceCount > 0 && this.value > 21){
+            this.value -= 10;
+            this.aceCount -= 1;
+        }
+        if(this.value > 21){
+            return -1;
+        }
+        else{
+            return this.value
+        }
     }
 
     dealToHand(numCards){
