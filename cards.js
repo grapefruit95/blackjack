@@ -1,7 +1,7 @@
 class Hand{
     constructor(name, initNumCards){
         this.cardsInHand = [];
-        this.value = this.getValue();
+        this.value = 0
         this.isDealer = false;
         this.aceCount = 0;
         let i = 0
@@ -34,11 +34,8 @@ class Hand{
         }
         if(this.value > 21){
             this.value = -1;
-            return -1;
         }
-        else{
-            return this.value
-        }
+        return this.value
     }
 
     dealToHand(numCards){
