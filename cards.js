@@ -33,6 +33,7 @@ class Hand{
             this.aceCount -= 1;
         }
         if(this.value > 21){
+            this.value = -1;
             return -1;
         }
         else{
