@@ -11,9 +11,15 @@ export function updateDisplayCards(){
         for(let j = 0; j < hands[i].cardsInHand.length; j++){
             let img = new Image();
             img.src = "cardsvgs/"+hands[i].cardsInHand[j]+".svg";
+            img.style.zIndex = j;
             img.height = 88;
             img.width = 63;
             img.className = "card";
+            if(j !== 0){
+                img.style.position = "relative";
+                img.style.top = String(-70*j)+"px";
+                img.style.left = String(10*j)+"px";
+            }
             
             handSpan.appendChild(img);
         }
