@@ -1,12 +1,18 @@
 import { createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
 import { updateDisplayCards } from "./display.js";
+
+let currentPlayer = 1;
+let playerChoice = "";
+let hitOnSoftSeventeen = false;
+let gameOver = false;
+
 function main(){
     setUpHands();
 
     let shoeSize = parseInt(prompt("Shoe Size: "));
     setUpShoe(shoeSize);
 
-    let hitOnSoftSeventeen = getSoftSeventeenBool();
+    hitOnSoftSeventeen = getSoftSeventeenBool();
     console.log(hitOnSoftSeventeen);
 
     removeJokers();
@@ -21,26 +27,10 @@ function main(){
     updateDisplayCards();
     console.log(numPlayers);
 
-    let currentPlayer = 1;
-    let playerChoice = "";
-    document.addEventListener("keydown", function(event){
-        if(event.key == "S"){
-            playerChoice = "Stand";
-            updateDisplayCards();
-            currentPlayer++;
-            if(currentPlayer == hands.length){
-                runDealerTurn(hitOnSoftSeventeen);
-                updateDisplayCards();
-                checkWin();
-            }
-        }
-        else if(event.key == "H"){
-            playerChoice = "Hit";
-            hands[currentPlayer].dealToHand(1);
-            updateDisplayCards();
-            if(hands[currentPlayer].getValue() == -1) currentPlayer++;
-        }
-    });
+
+    document.addEventListener("keydown", hitOrStand);
+
+
 }
 
 export let numPlayers = 0;
@@ -53,6 +43,37 @@ function setUpHands(){
     }
     hands[0].isDealer = true;
     console.log(hands);
+}
+
+
+
+function hitOrStand(){
+    if(!gameOver){
+        if(event.key == "S"){
+            playerChoice = "Stand";
+            updateDisplayCards();
+            currentPlayer++;
+            if(currentPlayer == hands.length){
+                finishGame(hitOnSoftSeventeen)
+            }
+        }
+        else if(event.key == "H"){
+            playerChoice = "Hit";
+            hands[currentPlayer].dealToHand(1);
+            updateDisplayCards();
+            if(hands[currentPlayer].getValue() == -1) currentPlayer++;
+            if(currentPlayer == hands.length){
+                finishGame(hitOnSoftSeventeen)
+            }
+        }
+    }
+}
+
+function finishGame(hitOnSoftSeventeen){
+    runDealerTurn(hitOnSoftSeventeen);
+    updateDisplayCards();
+    checkWin();
+    gameOver = true;
 }
 
 function setUpShoe(size){
@@ -88,7 +109,7 @@ function checkWin(){
     let winStr = "";
     let dealerSum = hands[0].getValue();
     for(let i = 1; i < hands.length; i++){
-        if(hands[i].getValue() > dealerSum){
+        if(hands[i].getValue() > dealerSum && dealerSum !== -1){
             winStr += "Player "+String(i)+" wins ";
         }
     }

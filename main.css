@@ -2,8 +2,20 @@
     padding: 0;
     margin: 0;
 }
+.dealer{
+    align-items: center;
+    text-align: center;
+}
+.players{
+    display: flex;
+    justify-content: space-evenly;
+}
 .hand{
+    display: inline-block;
     width: 63px;
     height: 88px;
+}
+.card{
+    box-shadow: 2px 2px 2px;
     border: 1px solid black;
 }
