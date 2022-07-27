@@ -3,7 +3,10 @@
     margin: 0;
 }
 .hand{
+    display: inline-block;
+    width: 50%;
     width: 63px;
     height: 88px;
-    border: 1px solid black;
+}
+.card{
 }

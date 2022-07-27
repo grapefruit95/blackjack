@@ -6,12 +6,16 @@ export function updateDisplayCards(){
     for(let i = 1; i < numPlayers+1; i++){
         let handDiv = document.getElementById("player-hand"+String(i));
         while(handDiv.lastChild) handDiv.removeChild(handDiv.lastChild); //start drawing cards for a hand from scratch everytime, could be optimized
+        let handSpan = document.createElement("span");
+        handDiv.appendChild(handSpan);
         for(let j = 0; j < hands[i].cardsInHand.length; j++){
             let img = new Image();
             img.src = "cardsvgs/"+hands[i].cardsInHand[j]+".svg";
             img.height = 88;
             img.width = 63;
-            handDiv.appendChild(img);
+            img.className = "card";
+            
+            handSpan.appendChild(img);
         }
     }
 }
