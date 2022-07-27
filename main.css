@@ -12,9 +12,9 @@
 }
 .hand{
     display: inline-block;
-    width: 50%;
     width: 63px;
     height: 88px;
 }
 .card{
+    box-shadow: 2px 2px 2px;
 }
