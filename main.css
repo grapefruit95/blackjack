@@ -2,6 +2,14 @@
     padding: 0;
     margin: 0;
 }
+.dealer{
+    align-items: center;
+    text-align: center;
+}
+.players{
+    display: flex;
+    justify-content: space-evenly;
+}
 .hand{
     display: inline-block;
     width: 50%;
