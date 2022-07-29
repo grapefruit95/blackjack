@@ -1,4 +1,4 @@
-import { numPlayers } from "./blackjack.js";
+import { numPlayers, currentPlayer } from "./blackjack.js";
 import { hands } from "./cards.js";
 export function updateDisplayCards(){
 
@@ -26,6 +26,10 @@ export function updateDisplayCards(){
                 img.style.position = "relative";
                 img.style.top = String(-70*j)+"px";
                 img.style.left = String(10*j)+"px";
+            }
+            if(i == currentPlayer){
+                img.style.boxShadow = "2px 2px 2px yellow";
+                img.style.border = "1px solid yellow";
             }
             
             let handSpan = document.createElement("span");

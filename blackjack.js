@@ -1,7 +1,7 @@
 import { createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
 import { updateDisplayCards } from "./display.js";
 
-let currentPlayer = 1;
+export let currentPlayer = 1;
 let playerChoice = "";
 let hitOnSoftSeventeen = false;
 let gameOver = false;
