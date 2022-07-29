@@ -28,7 +28,7 @@ function main(){
     console.log(numPlayers);
 
 
-    document.addEventListener("keydown", hitOrStand);
+    let inputListener = document.addEventListener("keydown", hitOrStand);
 
 
 }
