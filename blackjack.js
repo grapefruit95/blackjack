@@ -1,7 +1,7 @@
 import { createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
 import { updateDisplayCards } from "./display.js";
 
-let currentPlayer = 1;
+export let currentPlayer = 1;
 let playerChoice = "";
 let hitOnSoftSeventeen = false;
 let gameOver = false;
@@ -28,7 +28,7 @@ function main(){
     console.log(numPlayers);
 
 
-    document.addEventListener("keydown", hitOrStand);
+    let inputListener = document.addEventListener("keydown", hitOrStand);
 
 
 }
@@ -51,8 +51,8 @@ function hitOrStand(){
     if(!gameOver){
         if(event.key == "S"){
             playerChoice = "Stand";
-            updateDisplayCards();
             currentPlayer++;
+            updateDisplayCards();
             if(currentPlayer == hands.length){
                 finishGame(hitOnSoftSeventeen)
             }
@@ -60,8 +60,8 @@ function hitOrStand(){
         else if(event.key == "H"){
             playerChoice = "Hit";
             hands[currentPlayer].dealToHand(1);
-            updateDisplayCards();
             if(hands[currentPlayer].getValue() == -1) currentPlayer++;
+            updateDisplayCards();
             if(currentPlayer == hands.length){
                 finishGame(hitOnSoftSeventeen)
             }
