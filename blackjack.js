@@ -51,8 +51,8 @@ function hitOrStand(){
     if(!gameOver){
         if(event.key == "S"){
             playerChoice = "Stand";
-            updateDisplayCards();
             currentPlayer++;
+            updateDisplayCards();
             if(currentPlayer == hands.length){
                 finishGame(hitOnSoftSeventeen)
             }
@@ -60,8 +60,8 @@ function hitOrStand(){
         else if(event.key == "H"){
             playerChoice = "Hit";
             hands[currentPlayer].dealToHand(1);
-            updateDisplayCards();
             if(hands[currentPlayer].getValue() == -1) currentPlayer++;
+            updateDisplayCards();
             if(currentPlayer == hands.length){
                 finishGame(hitOnSoftSeventeen)
             }
