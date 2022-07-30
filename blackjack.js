@@ -1,4 +1,4 @@
-import { createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
+import { numHands, createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
 import { updateDisplayCards } from "./display.js";
 
 export let currentPlayer = 1;
@@ -35,14 +35,17 @@ function main(){
 
 export let numPlayers = 0;
 function setUpHands(){
-    while(numPlayers < 1 || numPlayers > 10){
-        numPlayers = parseInt(prompt("Number of players (1-10): "));
+    if(!gameOver){
+        while(numPlayers < 1 || numPlayers > 10){
+            numPlayers = parseInt(prompt("Number of players (1-10): "));
+        }
     }
     for(let i = 0; i < numPlayers+1; i++){
         createHand();
     }
     hands[0].isDealer = true;
     console.log(hands);
+    gameOver = false;
 }
 
 
@@ -54,7 +57,7 @@ function hitOrStand(){
             currentPlayer++;
             updateDisplayCards();
             if(currentPlayer == hands.length){
-                finishGame(hitOnSoftSeventeen)
+                finishGame(hitOnSoftSeventeen, hands)
             }
         }
         else if(event.key == "H"){
@@ -63,17 +66,28 @@ function hitOrStand(){
             if(hands[currentPlayer].getValue() == -1) currentPlayer++;
             updateDisplayCards();
             if(currentPlayer == hands.length){
-                finishGame(hitOnSoftSeventeen)
+                finishGame(hitOnSoftSeventeen, hands)
             }
         }
     }
 }
 
-function finishGame(hitOnSoftSeventeen){
+function finishGame(hitOnSoftSeventeen, hands){
     runDealerTurn(hitOnSoftSeventeen);
     updateDisplayCards();
     checkWin();
     gameOver = true;
+    currentPlayer = 1;
+    clearHands(hands);
+    dealToHands(2);
+    updateDisplayCards();
+    gameOver = false;
+}
+
+function clearHands(hands){
+    for(let i = 0; i < hands.length; i++){
+        hands[i].cardsInHand = [];
+    }
 }
 
 function setUpShoe(size){
