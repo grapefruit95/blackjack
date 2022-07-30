@@ -54,7 +54,7 @@ class Hand{
 export let deck = [];
 export let hands = [];
 
-let numHands = 0;
+export let numHands = 0;
 
 export function createHand(){
     numHands++;

@@ -1,9 +1,6 @@
 import { numPlayers, currentPlayer } from "./blackjack.js";
 import { hands } from "./cards.js";
 export function updateDisplayCards(){
-
-
-
     for(let i = 0; i < numPlayers+1; i++){
         let handDiv;
         if(i == 0){
