@@ -1,6 +1,6 @@
 import { numPlayers, currentPlayer } from "./blackjack.js";
 import { hands } from "./cards.js";
-export function updateDisplayCards(){
+export function updateDisplayCards(showDealer = false){
     for(let i = 0; i < numPlayers+1; i++){
         let handDiv;
         if(i == 0){
@@ -28,10 +28,17 @@ export function updateDisplayCards(){
                 img.style.boxShadow = "2px 2px 2px yellow";
                 img.style.border = "1px solid yellow";
             }
+            if(i == 0 && j == 1 && !showDealer){
+                img.src = "cardsvgs/BACK.svg";
+            }
             
             let handSpan = document.createElement("span");
             handDiv.appendChild(handSpan);
             handSpan.appendChild(img);
         }
     }
+}
+
+export function updateDisplayText(winStr){
+    document.getElementById("resultoutput").textContent = winStr;
 }
