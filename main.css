@@ -26,6 +26,12 @@ body{
     border: 1px solid black;
     border-radius: 5%;
 }
+.buttons{
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    bottom: 50%;
+}
 .textoutput{
     position: fixed;
     text-align: center;
