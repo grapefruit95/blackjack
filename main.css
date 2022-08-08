@@ -4,14 +4,17 @@
 }
 body{
     background-color: rgb(0, 73, 0);
+    color: white;
 }
 .dealer{
     align-items: center;
     text-align: center;
+    color: black;
 }
 .players{
     display: flex;
     justify-content: space-evenly;
+    color: black
 }
 .hand{
     display: inline-block;
