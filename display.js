@@ -28,6 +28,9 @@ export function updateDisplayCards(){
                 img.style.boxShadow = "2px 2px 2px yellow";
                 img.style.border = "1px solid yellow";
             }
+            if(i == 0 && j == 1){
+                img.src = "cardsvgs/back.svg";
+            }
             
             let handSpan = document.createElement("span");
             handDiv.appendChild(handSpan);
@@ -37,5 +40,5 @@ export function updateDisplayCards(){
 }
 
 export function updateDisplayText(winStr){
-    document.getElementById("resultoutput").textContent = winStr
+    document.getElementById("resultoutput").textContent = winStr;
 }
