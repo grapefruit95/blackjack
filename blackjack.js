@@ -28,8 +28,7 @@ function main(){
     console.log(numPlayers);
 
 
-    document.addEventListener("keydown", hitOrStand);
-
+    document.addEventListener("keydown", detectInput);
 
 }
 
@@ -50,7 +49,7 @@ function setUpHands(){
 
 
 
-function hitOrStand(){
+function detectInput(){
     if(!gameOver){
         if(event.key == "S"){
             playerChoice = "Stand";
@@ -70,18 +69,22 @@ function hitOrStand(){
             }
         }
     }
+    if(gameOver){
+        if(event.key == "Enter"){
+            currentPlayer = 1;
+            clearHands(hands);
+            dealToHands(2);
+            updateDisplayCards();
+            gameOver = false;
+        }
+    }
 }
 
 function finishGame(hitOnSoftSeventeen, hands){
     runDealerTurn(hitOnSoftSeventeen);
-    updateDisplayCards();
+    updateDisplayCards(true);
     checkWin();
     gameOver = true;
-    currentPlayer = 1;
-    clearHands(hands);
-    dealToHands(2);
-    updateDisplayCards();
-    gameOver = false;
 }
 
 function clearHands(hands){
