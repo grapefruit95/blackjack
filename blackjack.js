@@ -76,6 +76,7 @@ function detectInput(){
             dealToHands(2);
             updateDisplayCards();
             gameOver = false;
+            document.getElementById("resultoutput").textContent = "";
         }
     }
 }
