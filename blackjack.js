@@ -29,6 +29,8 @@ function main(){
 
 
     document.addEventListener("keydown", detectInput);
+    document.getElementById("hit-btn").addEventListener("click", detectHitBtn);
+    document.getElementById("stand-btn").addEventListener("click", detectStandBtn);
 
 }
 
@@ -47,11 +49,24 @@ function setUpHands(){
     gameOver = false;
 }
 
-
+let inputCode = "";
+function detectHitBtn(){
+    if(!gameOver){
+        inputCode = "H";
+        detectInput();
+    }
+}
+function detectStandBtn(){
+    if(!gameOver){
+        inputCode = "S";
+        detectInput();
+    }
+}
 
 function detectInput(){
     if(!gameOver){
-        if(event.key == "S"){
+        if(event.key == "S" || inputCode == "S"){
+            inputCode = "";
             playerChoice = "Stand";
             currentPlayer++;
             updateDisplayCards();
@@ -59,7 +74,8 @@ function detectInput(){
                 finishGame(hitOnSoftSeventeen, hands)
             }
         }
-        else if(event.key == "H"){
+        else if(event.key == "H" || inputCode == "H"){
+            inputCode = "";
             playerChoice = "Hit";
             hands[currentPlayer].dealToHand(1);
             if(hands[currentPlayer].getValue() == -1) currentPlayer++;
@@ -70,7 +86,7 @@ function detectInput(){
         }
     }
     if(gameOver){
-        if(event.key == "Enter"){
+        if(event.key == "N"){
             currentPlayer = 1;
             clearHands(hands);
             dealToHands(2);
@@ -81,7 +97,8 @@ function detectInput(){
     }
 }
 
-function finishGame(hitOnSoftSeventeen, hands){
+function finishGame(hitOnSoftSeventeen){
+    inputCode = "";
     runDealerTurn(hitOnSoftSeventeen);
     updateDisplayCards(true);
     checkWin();
