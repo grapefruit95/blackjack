@@ -35,3 +35,7 @@ export function updateDisplayCards(){
         }
     }
 }
+
+export function updateDisplayText(winStr){
+    document.getElementById("resultoutput").textContent = winStr
+}

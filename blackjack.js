@@ -1,5 +1,5 @@
 import { numHands, createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
-import { updateDisplayCards } from "./display.js";
+import { updateDisplayCards, updateDisplayText } from "./display.js";
 
 export let currentPlayer = 1;
 let playerChoice = "";
@@ -130,6 +130,7 @@ function checkWin(){
     if(winStr == ""){
         winStr = "Dealer Wins";
     }
+    updateDisplayText(winStr);
     console.log(winStr)
 }
 
