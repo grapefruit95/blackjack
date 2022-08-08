@@ -29,7 +29,7 @@ export function updateDisplayCards(showDealer = false){
                 img.style.border = "1px solid yellow";
             }
             if(i == 0 && j == 1 && !showDealer){
-                img.src = "cardsvgs/back.svg";
+                img.src = "cardsvgs/BACK.svg";
             }
             
             let handSpan = document.createElement("span");
