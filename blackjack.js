@@ -2,6 +2,7 @@ import { numHands, createHand, hands, deck, removeJokers, shuffle, dealToHands }
 import { updateDisplayCards, updateDisplayText } from "./display.js";
 
 export let currentPlayer = 1;
+export let numSplits = 0;
 let playerChoice = "";
 let hitOnSoftSeventeen = false;
 let gameOver = false;
@@ -86,8 +87,10 @@ function detectInput(){
         }
         else if(event.key == "P" || inputCode == "P"){
             inputCode = "";
+            numSplits++;
             createHand();
             hands[hands.length-1].cardsInHand.push(hands[currentPlayer].cardsInHand.pop());
+            console.log(hands);
             updateDisplayCards();
         }
     }
