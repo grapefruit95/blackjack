@@ -1,4 +1,4 @@
-import { numHands, createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
+import { createHand, hands, deck, removeJokers, shuffle, dealToHands, removeHand } from "./cards.js";
 import { updateDisplayCards, updateDisplayText } from "./display.js";
 
 export let currentPlayer = 1;
@@ -110,12 +110,10 @@ function detectInput(){
     }
     if(gameOver){
         if(event.key == "N" || inputCode == "N"){
+            inputCode = "";
             currentPlayer = 1;
-            let handDiv;
             while(numSplits){
-                handDiv = document.getElementById("player-hand"+String(hands.length-1));
-                handDiv.remove();
-                hands.pop();
+                removeHand();
                 numSplits--;
             }
             console.log(hands);

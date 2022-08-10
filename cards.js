@@ -58,7 +58,7 @@ export let numHands = 0;
 
 export function createHand(){
     numHands++;
-    hands.push(new Hand("Player "+String(numHands), 0))
+    hands.push(new Hand("Player "+String(numHands), 0));
     if(numHands >= 3){
         //clones divs to to insert players into HTML
         const playerHandDiv = document.getElementById('player-hand'+String(numHands-2));
@@ -66,6 +66,16 @@ export function createHand(){
         clonedPlayerDiv.id = "player-hand"+String(numHands-1);
         playerHandDiv.after(clonedPlayerDiv);
     }
+}
+
+export function removeHand(){
+    let handDiv;
+    numHands--;
+    hands.pop();
+    handDiv = document.getElementById("player-hand"+String(hands.length));
+    handDiv.remove();
+    console.log("remove");
+    console.log(hands);
 }
 
 export function getHands(){
