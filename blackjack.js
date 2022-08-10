@@ -84,6 +84,12 @@ function detectInput(){
                 finishGame(hitOnSoftSeventeen, hands)
             }
         }
+        else if(event.key == "P" || inputCode == "P"){
+            inputCode = "";
+            createHand();
+            hands[hands.length-1].cardsInHand.push(hands[currentPlayer].cardsInHand.pop());
+            updateDisplayCards();
+        }
     }
     if(gameOver){
         if(event.key == "N"){
