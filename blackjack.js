@@ -33,6 +33,7 @@ function main(){
     document.getElementById("hit-btn").addEventListener("click", detectHitBtn);
     document.getElementById("stand-btn").addEventListener("click", detectStandBtn);
     document.getElementById("split-btn").addEventListener("click", detectSplitBtn);
+    document.getElementById("nexthand-btn").addEventListener("click", detectNextHandBtn);
 
 }
 
@@ -70,6 +71,12 @@ function detectSplitBtn(){
         detectInput();
     }
 }
+function detectNextHandBtn(){
+    if(gameOver){
+        inputCode = "N";
+        detectInput();
+    }
+}
 
 function detectInput(){
     if(!gameOver){
@@ -102,7 +109,7 @@ function detectInput(){
         }
     }
     if(gameOver){
-        if(event.key == "N"){
+        if(event.key == "N" || inputCode == "N"){
             currentPlayer = 1;
             let handDiv;
             while(numSplits){
