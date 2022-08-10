@@ -97,6 +97,14 @@ function detectInput(){
     if(gameOver){
         if(event.key == "N"){
             currentPlayer = 1;
+            let handDiv;
+            while(numSplits){
+                handDiv = document.getElementById("player-hand"+String(hands.length-1));
+                handDiv.remove();
+                hands.pop();
+                numSplits--;
+            }
+            console.log(hands);
             clearHands(hands);
             dealToHands(2);
             updateDisplayCards();
@@ -150,6 +158,7 @@ function runDealerTurn(hitOnSoftSeventeen){
 }
 
 function checkWin(){
+    console.log(hands);
     let winStr = "";
     let dealerSum = hands[0].getValue();
     for(let i = 1; i < hands.length; i++){
