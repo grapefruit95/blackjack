@@ -144,7 +144,7 @@ function checkWin(){
     let winStr = "";
     let dealerSum = hands[0].getValue();
     for(let i = 1; i < hands.length; i++){
-        if(hands[i].getValue() > dealerSum && dealerSum !== -1){
+        if(hands[i].getValue() > dealerSum){
             winStr += "Player "+String(i)+" wins ";
         }
     }
