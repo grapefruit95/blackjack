@@ -1,7 +1,7 @@
-import { numPlayers, currentPlayer } from "./blackjack.js";
+import { numPlayers, currentPlayer, numSplits } from "./blackjack.js";
 import { hands } from "./cards.js";
-export function updateDisplayCards(showDealer = false){
-    for(let i = 0; i < numPlayers+1; i++){
+export function updateDisplayCards(showDealer = false,){
+    for(let i = 0; i < numPlayers+numSplits+1; i++){
         let handDiv;
         if(i == 0){
             handDiv = document.getElementById("dealer-hand");

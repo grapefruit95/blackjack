@@ -1,7 +1,8 @@
-import { numHands, createHand, hands, deck, removeJokers, shuffle, dealToHands } from "./cards.js";
+import { createHand, hands, deck, removeJokers, shuffle, dealToHands, removeHand } from "./cards.js";
 import { updateDisplayCards, updateDisplayText } from "./display.js";
 
 export let currentPlayer = 1;
+export let numSplits = 0;
 let playerChoice = "";
 let hitOnSoftSeventeen = false;
 let gameOver = false;
@@ -31,6 +32,8 @@ function main(){
     document.addEventListener("keydown", detectInput);
     document.getElementById("hit-btn").addEventListener("click", detectHitBtn);
     document.getElementById("stand-btn").addEventListener("click", detectStandBtn);
+    document.getElementById("split-btn").addEventListener("click", detectSplitBtn);
+    document.getElementById("nexthand-btn").addEventListener("click", detectNextHandBtn);
 
 }
 
@@ -62,6 +65,18 @@ function detectStandBtn(){
         detectInput();
     }
 }
+function detectSplitBtn(){
+    if(!gameOver){
+        inputCode = "P";
+        detectInput();
+    }
+}
+function detectNextHandBtn(){
+    if(gameOver){
+        inputCode = "N";
+        detectInput();
+    }
+}
 
 function detectInput(){
     if(!gameOver){
@@ -84,10 +99,24 @@ function detectInput(){
                 finishGame(hitOnSoftSeventeen, hands)
             }
         }
+        else if(event.key == "P" || inputCode == "P"){
+            inputCode = "";
+            numSplits++;
+            createHand();
+            hands[hands.length-1].cardsInHand.push(hands[currentPlayer].cardsInHand.pop());
+            console.log(hands);
+            updateDisplayCards();
+        }
     }
     if(gameOver){
-        if(event.key == "N"){
+        if(event.key == "N" || inputCode == "N"){
+            inputCode = "";
             currentPlayer = 1;
+            while(numSplits){
+                removeHand();
+                numSplits--;
+            }
+            console.log(hands);
             clearHands(hands);
             dealToHands(2);
             updateDisplayCards();
@@ -141,10 +170,11 @@ function runDealerTurn(hitOnSoftSeventeen){
 }
 
 function checkWin(){
+    console.log(hands);
     let winStr = "";
     let dealerSum = hands[0].getValue();
     for(let i = 1; i < hands.length; i++){
-        if(hands[i].getValue() > dealerSum && dealerSum !== -1){
+        if(hands[i].getValue() > dealerSum){
             winStr += "Player "+String(i)+" wins ";
         }
     }
