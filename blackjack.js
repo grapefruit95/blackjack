@@ -32,6 +32,7 @@ function main(){
     document.addEventListener("keydown", detectInput);
     document.getElementById("hit-btn").addEventListener("click", detectHitBtn);
     document.getElementById("stand-btn").addEventListener("click", detectStandBtn);
+    document.getElementById("split-btn").addEventListener("click", detectSplitBtn);
 
 }
 
@@ -60,6 +61,12 @@ function detectHitBtn(){
 function detectStandBtn(){
     if(!gameOver){
         inputCode = "S";
+        detectInput();
+    }
+}
+function detectSplitBtn(){
+    if(!gameOver){
+        inputCode = "P";
         detectInput();
     }
 }
