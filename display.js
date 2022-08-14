@@ -59,8 +59,8 @@ export function drawDeck(){
         img.zIndex = i;
         img.className = "deck";
         img.style.position = "fixed";
-        img.style.top = String(5-0.005*i)+"%";
-        img.style.right = String(10+0.005*i)+"%";
+        img.style.top = String(5-0.003*i)+"%";
+        img.style.right = String(10+0.003*i)+"%";
         deckSpan.appendChild(img);  
     }
     deckDiv.appendChild(deckSpan);
