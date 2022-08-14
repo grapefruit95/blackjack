@@ -40,18 +40,6 @@ export function updateDisplayCards(showDealer = false,){
     drawDeck();
 }
 
-let lastDeckLength = deck.length;
-export function updateDeck(){
-    console.log(deck.length);
-    console.log(lastDeckLength);
-    let deckDiv = document.getElementById("deck");
-    let deckSpan = deckDiv.getElementsByClassName("deckspan");
-    for(let i = 0; i < lastDeckLength-deck.length; i++){
-        deckSpan.remove(deckSpan.Image);
-    }
-    lastDeckLength = deck.length;
-}
-
 export function drawDeck(){
     let deckDiv = document.getElementById("deck");
     while(deckDiv.lastChild) deckDiv.removeChild(deckDiv.lastChild);
