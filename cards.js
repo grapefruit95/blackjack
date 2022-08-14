@@ -109,6 +109,7 @@ export function removeJokers(){
 export function dealToHands(numCards){
     let cardsToDeal = numCards*hands.length;
     if(cardsToDeal > deck.length){
+        window.location.reload();
         return false;
     }
     while(cardsToDeal > 0){
