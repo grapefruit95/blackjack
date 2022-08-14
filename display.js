@@ -1,5 +1,5 @@
 import { numPlayers, currentPlayer, numSplits } from "./blackjack.js";
-import { hands } from "./cards.js";
+import { hands, deck } from "./cards.js";
 export function updateDisplayCards(showDealer = false,){
     for(let i = 0; i < numPlayers+numSplits+1; i++){
         let handDiv;
@@ -37,6 +37,39 @@ export function updateDisplayCards(showDealer = false,){
             handSpan.appendChild(img);
         }
     }
+    drawDeck();
+}
+
+let lastDeckLength = deck.length;
+export function updateDeck(){
+    console.log(deck.length);
+    console.log(lastDeckLength);
+    let deckDiv = document.getElementById("deck");
+    let deckSpan = deckDiv.getElementsByClassName("deckspan");
+    for(let i = 0; i < lastDeckLength-deck.length; i++){
+        deckSpan.remove(deckSpan.Image);
+    }
+    lastDeckLength = deck.length;
+}
+
+export function drawDeck(){
+    let deckDiv = document.getElementById("deck");
+    while(deckDiv.lastChild) deckDiv.removeChild(deckDiv.lastChild);
+    let deckSpan = document.createElement("span");
+    deckSpan.className = "deckspan";
+    for(let i = 0; i < deck.length; i++){
+        let img = new Image();
+        img.src = "cardsvgs/back.svg";
+        img.height = 88;
+        img.width = 63;
+        img.zIndex = i;
+        img.className = "deck";
+        img.style.position = "fixed";
+        img.style.top = String(5-0.005*i)+"%";
+        img.style.right = String(10+0.005*i)+"%";
+        deckSpan.appendChild(img);  
+    }
+    deckDiv.appendChild(deckSpan);
 }
 
 export function updateDisplayText(winStr){

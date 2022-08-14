@@ -1,5 +1,5 @@
 import { createHand, hands, deck, removeJokers, shuffle, dealToHands, removeHand } from "./cards.js";
-import { updateDisplayCards, updateDisplayText } from "./display.js";
+import { drawDeck, updateDisplayCards, updateDisplayText } from "./display.js";
 
 export let currentPlayer = 1;
 export let numSplits = 0;
@@ -9,9 +9,9 @@ let gameOver = false;
 
 function main(){
     setUpHands();
-
     let shoeSize = parseInt(prompt("Shoe Size: "));
     setUpShoe(shoeSize);
+    drawDeck();
 
     hitOnSoftSeventeen = getSoftSeventeenBool();
     console.log(hitOnSoftSeventeen);

@@ -37,3 +37,12 @@ body{
     width: 100%;
     bottom: 10%;
 }
+.deck{
+    box-shadow: 2px 2px 2px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5%;
+    position: fixed;
+    right: 10%;
+    top: 5%;
+}
