@@ -55,6 +55,12 @@ export function updateDeck(){
 export function drawDeck(){
     let deckDiv = document.getElementById("deck");
     while(deckDiv.lastChild) deckDiv.removeChild(deckDiv.lastChild);
+
+    if(deck.length == 0){
+        deckDiv.style.boxShadow = "none";
+        deckDiv.style.border = "none";
+    }
+
     let deckSpan = document.createElement("span");
     deckSpan.className = "deckspan";
     for(let i = 0; i < deck.length; i++){
